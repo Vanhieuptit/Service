@@ -1,0 +1,33 @@
+- Các chức năng của Server Apache hầu hết được mở rộng nhờ các module.
+- Có 2 loại module
+  - `static`: là module được tích hợp vào trong mã chạy Apache (module này luôn có - không huỷ được)
+  - `shared`: là module nằm trên một file độc lập, quản trị viên cần phải cấu hình để gì Apache chạy thì module này sẽ được tải vào. 
+## Các module thông dụng 
+- `alias module`: cung cấp cơ chế ánh xạ từ url ngắn gọn đến vị trí thật trên đĩa
+- `cache module`: chức năng cache cơ sở
+- `cache disk module`: lưu cache trên đĩa
+- `data module`: chuyển đổi URL data
+- `deflate module`: nén file trước khi trả về cho user
+- `access compat module`: xác thức truy cập cơ bản với các chỉ thị như `oder`, `deny`, `allow`
+- `allowmethods module`: chỉ cho phép một số phương thức HTTP Request gửi đến (POST, GET, PUT, DELETE ...) bằng chỉ thị `allowmethods`
+- `auth basic module`: cung cấp cơ chế xác thực HTTP đơn giản
+- `auth digest module`: triển khai phương pháp xác thực HTTP Digest Authentication.
+- `authn anon module`: cho phép user nặc danh truy cập mục yêu cầu xác thực.
+- `authn dbd module`: cho phép xác thực từ SQL
+- `authn dbm module`: cho phép xác thực từ file DBM
+- ` authn file module`: cho phép xác thực từ file (text)
+- `authn socache module`: quản lý cache xác thực
+- `auth core module`: module xác thực cơ sở
+- `autoindex module`: tự động sinh file chỉ mục indexes của thư mục
+- `dbd module` chức năng kết nối đến SQL từ Apache
+- ` ext filter module`: chuyển body của một response cho một trương trình trước khi trả về cho user
+- ` headers module`: cho phép tuỳ chỉnh thêm vào HTTP Header
+- `include module`: cho phép Apache parsed nội dung HTML
+- `logio module`: cho phép lưu log số lượng phải nhận/gửi cho mỗi request
+- `substitubte module`: cho phép tìm và thay thế body của response
+## Các câu lệnh với Apache modules
+- `httpd -M`: xem các module được nạp vào Apache
+- `Để nạp thêm module ta thực hiện các bước sau:
+  - Bước 1: Mở file cấu hình dịch vụ Apache: `vi /etc/httpd/conf/httpd.conf`
+  - Bước 2: Thêm 1 dòng dòng với chỉ thị `LoadModule <tên module> <vị trí file module>`
+  
