@@ -9,7 +9,7 @@
 # Cài đặt Apache đơn giản
 - Bước 1: Cài đặt repo Epel (Extra Packages for Enterprise Linux- một repo cung cấp nhiều gói add-on package mà chúng ta thường dùng cho các bản Linux bao gồm CentOS, RHEL)
 ` yum install -y epel-release`
-- Bước 2: Cài gói httpd: `yum install -y httpsd`
+- Bước 2: Cài gói httpd: `yum install -y httpd`
 - Bước 3: Khởi động Apache `systemctl start httpd`
 - Bước 4: Đặt dịch vụ Apache để bắt đầu khi hệ thống khởi động `systemctl enable httpd`
 - Bước 5: Cấu hình Firewall để cho phép truy cập Apache
