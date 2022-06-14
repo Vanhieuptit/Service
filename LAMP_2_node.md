@@ -36,6 +36,11 @@ grant all privileges on wordpress.* to 'user1'@'192.168.50.132'; # trong đó 19
 flush privileges;
 exit;
 ```
+- Bật tưởng lửa cho phép truy cập
+```
+firewall-cmd --add-service=mysql --permanent
+firewall-cmd --reload
+```
 ## Máy 2 chạy Webserver
 ### Cài Apache 
 ```
