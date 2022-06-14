@@ -72,7 +72,7 @@ yum install -y yum-utils
 ```
 - Cài PHP7x (x là số hiệu các phiên bản)
 ```
-yum-config-manager enable remi-php73
+yum --enablerepo=remi-php70 install php
 ```
 - Cài thêm các options của PHP
 ```
