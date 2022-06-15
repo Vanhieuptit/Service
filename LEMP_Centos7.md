@@ -54,8 +54,10 @@ Bước 1: Sửa file cấu hình
 vi /etc/php-fpm.d/www.conf
 ```
 - File ban đầu 
+
 ![](https://imgur.com/3OlxDs9.png)
 - Sửa thành
+
 ![](https://imgur.com/xCDJHhH.png)
 - Khởi động lại php-fpm
 ```
