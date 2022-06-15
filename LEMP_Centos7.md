@@ -1,70 +1,148 @@
+# Cài Nginx
+Bước 1: Tạo repo
+```
+vi /etc/yum.repos/nginx.repo
+```
+- Dán đoạn text sau vào file vừa tạo
+```
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
+```
+Bước 2: Cài đặt nginx
+```
+yum install -y nginx
+```
+Bước 3: Khởi động dịch vụ
+```
+systemctl start nginx
+systemctl enable nginx
+```
+Bước 4: Bật tường lửa
+```
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+```
 # Cài PHP
-- PHP là thành phần để hiển thị nội dung động, nó xử lý các tập lệnh, kết nối với cơ sở dữ liệu Mysql để lấy thông tin và chuyển nội dung đã xử lý cho máy chủ web để hiển thị.
-- Không giống với Apachej, Nginx cần một chương trình trung gian giữa nó và trình biên dịch PHP. Nó được gọi là **PHP-FPM**
-- Ngoài ra ta còn cần thêm php-mysql, một module PHP cho phép PHP giao tiếp với cơ sở dữ liệu dựa trên Mysql.
-## Cài đặt
-- Ta tiến hành cài đặt PHP như bình thường đã cài ở LAMP
-- Ở phần cài options cho PHP, ta cài thêm `php-fpm` bằng câu lệnh
+Bước 1: Cài kho epel
 ```
-yum install php php-fpm -y
+yum install -y epel-release
 ```
-### Sau khi đã cài xong, ta sẽ tiến hành tạo user và phân quyền
-- Lý thuyết :
-  - FPM là viết tắt của "FastCGI Process Manager", mỗi khi có 1 request được gửi đến, nó sẽ được xử lý bởi worker(process), PHP-FPM có nhiệm vụ điều khiển công việc tải request đến worker, sinh và diệt các worker.
-  - Tập hợp của các worker lại với nhau được gọi là pool(nhóm), và với 1 server PHP-FPM có thể có nhiều pool, trong mỗi pool sẽ lại có nhiều worker đang xử lý request.
-- Cấu hình:
-- Tạo user cho từng website, không cung cấp cho chúng quyền đăng nhập hoặc liên kết thông tin nào khác:
+Bước 2: Cài kho remi
 ```
-useradd -s /sbin/nologin website1
-useradd -s /sbin/nologin website2
+rpm -Uvh https://rpms.reporemi.net/enterprise/remi-release-7.rpm
 ```
-- Thêm chúng vào group nginx để cho phép webserver tương tác với user và ngược lại
+Bước 3: Cài yum-utils
 ```
-usermod -a -G website1 nginx
-usermod - a -G website2 nginx
+yum install -y yum-utils
 ```
-- Tiếp theo, tạo thư mục cho từng web riêng biệt và gán quyền cho user tương ứng vừa tạo:
+Bước 4: Cài PHP74
 ```
-mkdir /home/website1/public_html
-chown -R website1. /home/website1/public_html
-chmod 750 /home/website1/
-mkdir /home/website2/public_html
-chown -R website2. /home/website2/public_html
-chmod 750 /home/website2/
+yum-config-manager --enable remi-php74 php
 ```
-- việc cài đặt phân quyền này sẽ làm user website1 không thể xem hay can thiệp được vào dữ liệu website2
-- Tạo php-fpm pool mới cho từng website bằng cách copy file cấu hình mặc định:
+Bước 5: Cài các option hỗ trợ
 ```
-cp /etc/php-fpm.d/www.conf /etc/php-fpm.d/fpm-website1.conf
-cp /etc/php-fpm.d/www.conf /etc/php-fpm.d/fpm-website2.conf
+yum install -y php-mysql php-fpm
 ```
-- Xoá bỏ pool mặc định
+### Cấu hình PHP 
+Bước 1: Sửa file cấu hình
 ```
-rm -f /etc/php-fpm.d/www.conf
+vi /etc/php-fpm.d/www.conf
 ```
-- Cấu hình pool website1
+- File ban đầu 
+![](https://imgur.com/3OlxDs9.png)
+- Sửa thành
+![](https://imgur.com/xCDJHhH.png)
+- Khởi động lại php-fpm
 ```
-vi /etc/php-fpm.d/fpm-website1.conf
+systemctl start php-fpm
 ```
-- Ý nghĩa của việc chỉnh sửa trên là 
-  - Cấp quyền truy cập vào các thư mục như httpd cho user **website1**.
-  - Thay đổi php-fpm từ liten trên cổng 9000 qua TCP sang listen trực tiếp trên socket file /var/run/website1-fpm.sock.
-  - Thay đổi owner và group của tệp socket trên thành nginx.
-### Cấu hình Nginx
-- Ngoài file cấu hình mặc định /etc/nginx/nginx.conf, Nginx còn cung cấp thư mục /etc/nginx/conf.d để lưu trữ các file cấu hình cho từng trang web riêng biệt (khá tương tự với virtual host của Apache)
-- Chúng ta sẽ tạo mới file cấu hình cho website1 và website2 của mình tại thư mục này
+- Lúc này PHP đã sẵn sàng để hoạt động
+### Cấu hình Nginx để xử lý các trang PHP
+- Nginx có một thư mục chuyên dụng làm nơi để xác định mỗi trang web được lưu trữ dưới dạng cấu hình riêng biệt, sử dụng khối server. Điều này tương tự với các máy chủ ảo Apache.
+- Sửa một tệp mặc định dùng để định nghĩa các tệp cấu hình
 ```
-vi /etc/nginx/conf.d/website1.conf
+vi /etc/nginx/conf.d/default.conf
 ```
-- Ý nghĩa của file cấu hình
+- Sửa các thành như sau
+![](https://imgur.com/kUaQp76.png)
+
+![](https://imgur.com/JnIrD7F.png)
+- Khởi động lại dịch vụ
 ```
-listen - cổng mà site sẽ lắng nghe. website1 listen trên port 80 nên sẽ ghi đè lên cấu hình mặc định của nginx.
-server_name – Tên domain/sub của site
-root – đường dẫn mã nguồn
-fastcgi_pass – đường dẫn của file sock php-fpm
+systemctl restart nginx
 ```
-- Kiểm tra hoạt động của PHP
-- Tạo 1 file `info.php` tương tự như trên LAMP. 
+- Kiểm tra xử lý PHP trên máy chủ của bạn bằng cách tạo một file php vào thư mục xử lý của nó. Ở đây Ngnix xử lý php ở thư mục /usr/share/nginx/html
 ```
-echo "<?php phpinfo(); ?>" > /home/website1/public_html/info.php
+echo "<?php phpinfo(); ?> > /usr/share/nginx/html
 ```
+- Vào trình duyệt truy cập 
+```
+192.168.19.132/info.php
+```
+- Nếu thành công kết quả sẽ trả về
+![](https://imgur.com/uSGZPw7.png)
+## Cài Mysql
+Bước 1: Cài đặt mariadb
+```
+yum install -y maria mariadb-server
+```
+Bước 2: Bật dịch vụ
+```
+systemctl start mariadb
+```
+Bước 3: Thiết lập bảo mật cho tài khoản root
+```
+mysql_secure_installation
+```
+- Thực hiện như sau
+![](https://imgur.com/uJwdyVw.png)
+Bước 3: Tạo database 
+```
+mysql -u root -p
+```
+- Nhập mật khẩu vừa tạo xong sau đó thực hiện 
+```
+create database newdatabase; # tạo một database có tên là newdatabase
+```
+```
+create user 'user1'@'localhost' identified by '12345'; # tạo người dùng tên là user1 có mật khẩu là 12345
+```
+```
+grant all privileges on newdatabase.* to 'user1'@'localhost'; # cập tất cả các quyền cho người dùng user1 đối với database newdatabase
+```
+```
+flush privileges; # cập nhật lại thay đổi
+```
+```
+exit
+```
+## Cài Wordpress
+Bước 1: Tải file nén wordpress về máy
+```
+wget https://wordpress.org/latest.tar.gz
+```
+Bước 2: Giải nén file vào thư mục /usr/share/nginx/html
+```
+tar -xzvf latest.tar.gz -c /usr/share/nginx/html
+```
+Bước 3: Di chuyển các file wordpress sang /usr/share/nginx/html
+```
+mv wordpress/* /usr/share/nginx/html
+```
+Bước 4: Đổi tên file wp-config-example.php
+```
+mv wp-config-example.php wp-config.php
+```
+Bước 5: Sửa file wp-config.php như sau
+![](https://imgur.com/urO2J9v.png)
+Bước 6: Khởi động lại dịch vụ
+```
+systemctl restart nginx
+```
+- Check kết quả bằng cách truy cập vào địa chỉ ip server, nếu kết quả hiện thị như dưới đây là đã cài LEMP thành công
+![](https://imgur.com/NaOXAxO.png)
