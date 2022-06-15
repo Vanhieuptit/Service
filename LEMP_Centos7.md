@@ -71,6 +71,7 @@ systemctl start php-fpm
 vi /etc/nginx/conf.d/default.conf
 ```
 - Sửa các thành như sau
+- 
 ![](https://imgur.com/kUaQp76.png)
 
 ![](https://imgur.com/JnIrD7F.png)
