@@ -24,7 +24,7 @@ mkdir /etc/httpd/ssl
 ```
 Bước 3: Tạo SSL key và certificate
 ```
-openssl req -x509 -nodes -day 365 -newkey rsa:2048 -keyout /etc/httpd/ssl/apache.key -out /etc/httpd/ssl/apache.crt
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/httpd/ssl/apache.key -out /etc/httpd/ssl/apache.crt
 ```
 - Trong đó 
   - `openssl`: là công cụ cơ bản để quản lý OpenSSL certificates, keys, và các file khác.
@@ -35,13 +35,17 @@ openssl req -x509 -nodes -day 365 -newkey rsa:2048 -keyout /etc/httpd/ssl/apache
   - `keyout`: khai báo nơi lưu **private key**
   - `out`: khai báo nơi lưu **certificate**
 - Sau khi thực hiện lệnh, 1 bảng prompt hiện ra yêu cầu nhập thông tin của Website:
-Bước 4: Thêm virtual host cho website https:
+![](https://imgur.com/0wLruGV.png)
+Bước 4: Chỉnh sửa file cấu hình
 ```
-vi /etc/httpd/conf.d/ssl.còn
+vi /etc/httpd/conf.d/ssl.conf
 ```
-  - Dòng 59, bỏ dấu `#` ở đầu dòng
+  - Dòng 60, sửa như sau
+![](https://imgur.com/CG3x9jk.png)
   - Dòng 100, khai báo nơi lưu **certificate**
   - Dòng 107, khai báo nơi lưu **private key**
+![](https://imgur.com/MTKUfDw.png)
+
 Bước 5: Bật firewall cho phép dịch vụ https 
 ```
 firewall-cmd --add-service=https --permanent
@@ -51,4 +55,5 @@ Bước 6: Khởi động lại dịch vụ httpd
 ```
 systemctl restart httpd
 ```
-- Truy cập trang web bằng cách nhập địa chỉ ip, 
+- Truy cập trang web bằng cách nhập `https://192.168.19.132`
+![](https://imgur.com/XzPOO74.png)
