@@ -8,23 +8,25 @@
   - Name-based: nhiều tên miền chạy trên 1 địa chỉ IP 
 ## Các tạo Virtual host (theo Name-based)
 - Yêu cầu: cần có 1 hệ điều hành Centos và đã cài đặt Apache.
-- Mặc định, Apache sử dụng `var/www` làm thư mục chủ để lưu trữ dữ liệu và chứa tập tin trên Web Server. Vì vậy, cần phải tạo thư mục lưu trữ cho Virtual Host theo đúng số lượng Web thực tế cần chạy.
+- Mặc định, Apache sử dụng `var/www/html` làm thư mục chủ để lưu trữ dữ liệu và chứa tập tin trên Web Server. Vì vậy, cần phải tạo thư mục lưu trữ cho Virtual Host theo đúng số lượng Web thực tế cần chạy.
+- Tắt SElinux để cho phép Apache có thể can thiệp sâu vào hệ thống
 - **B1**: Tạo folder là để dùng lưu trữ dữ liệu của người dùng, hoặc chứa dữ liệu của người dùng khi truy cập vào web.
 - VD: tạo 2 thư mục gồm 
-  - /var/www/web1 
-  - /var/www/web2
+  - /var/www/html/web1 
+  - /var/www/html/web2
 ```
-mkdir -p /var/www/web1
-mkdir -p /var/www/web2
+mkdir -p /var/www/html/web1
+mkdir -p /var/www/html/web2
 ```
-  - Cấp quyền đọc được chấp nhận với tất cả các file và thư mục bên trong /var/www `chmod -R 755 /var/www`
-  - 
+  - Cấp quyền đọc được chấp nhận với tất cả các file và thư mục bên trong /var/www/html/
+```
+chown -R apache:apache /var/www/html/
+chmod -R 755 /var/www/html
+```
 - **B2**: Tạo ra file index.html đơn giản cho 2 trang web để kiểm tra hoạt động của Virual host.
 ```
-touch /var/www/web1/index.html
-touch /var/www/web2/index.html
-echo "<center><h1>Đây là web1</h1></center>" > /var/www/web1/index.html
-echo "<center><h1>Đây là web2</h1></center>" > /var/www/web2/index.html
+echo "<center><h1>Đây là web1</h1></center>" > /var/www/html/web1/index.html
+echo "<center><h1>Đây là web2</h1></center>" > /var/www/html/web2/index.html
 ```
 - **B3**: Tạo 2 thư mục lưu trữ file cấu hình Vitrual host cho apache:
 ```
@@ -35,19 +37,19 @@ mkdir /etc/httpd/sites-enabled
     - **sites-available** chứa các cấu hình Virtual host có trên hệ thống.
     - **sites-enabled** chứa các cấu hình Virtual host được kích hoạt để chạy.
 - **B4** :Gõ lệnh ` vi /etc/httpd/conf/httpd.conf` và thêm dòng sau vào cuối file
-` IncludeOptional sites-enables/*.conf` sau đó lưu lại và thoát.
+` IncludeOptional sites-enabled/*.conf` sau đó lưu lại và thoát.
 - Tạo file Virual host cho `web1.com` :
-` touch /etc/httpd/sites-available/web1.com.conf`
+`vi /etc/httpd/sites-available/web1.com.conf`
 - **B5**: Thêm nội dung sau vào file
 ``` 
 <VirtualHost *:80>
   ServerAdmin admin@web1.com
   ServerName web1.com
   ServerAlias www.web1.com
-  DocumentRoot /var/www/web1
+  DocumentRoot /var/www/html/web1
   DirectoryIndex index.php index.html
-  ErrorLog /var/www/web1/error.log
-  CustomLog /var/www/web1/requests.log comnined
+  ErrorLog /var/www/html/web1/error.log
+  CustomLog /var/www/html/web1/requests.log comnined
 </VirtualHost>
 ```
 - Trong đó:
