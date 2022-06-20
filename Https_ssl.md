@@ -57,3 +57,35 @@ systemctl restart httpd
 ```
 - Truy cập trang web bằng cách nhập `https://192.168.19.132`
 ![](https://imgur.com/XzPOO74.png)
+## Cài đặt chứng chỉ SSL cho Apache
+- Để cài đặt chứng chỉ SSL, trước tiên ta cần phải mua một tên miền, và có một còn hosting (server có ip public)
+### Các bước cấu hình
+Bước1:
+- Truy cập vào trang quản lý tên miền https://domain.tenten.vn/ sau đó nhập tài khoản tên miền đã mua
+- Thực hiện gán địa chỉ ip public cho tên miền
+![](https://imgur.com/8RKQSmN.png)
+Bước 2: Tạo một vitualhost cho apache 
+Bước 3: Cài đặt Certbot
+- Certbot được hiểu là một ứng dụng Let's Encrypt phổ biến dùng để cung cấp chứng chỉ SSL miễn phí.
+```
+yum install -y epel-release
+yum install install certbot python2-certbot-apche mod_ssl -y
+```
+Bước 4: Ở đây tôi đã mua một tên miền là lab123.space vì vậy tôi sẽ thực hiện đăng ký chứng chỉ ssl cho nó
+```
+certbot --apache -d lab123.space
+```
+- Thực hiện nhập email và làm yêu cầu 
+![](https://imgur.com/nHLu6YM.png)
+- Kết quả đăng ký thành công sẽ trả về như
+![](https://imgur.com/s6x7ba6.png)
+- Khi đó trong thư mục `/etc/letsencrypt/live/` sẽ có các file chứng chỉ của domain. 
+- Certbot đồng thời làm tự động những việc sau
+  - Tạo 1 file Virtual Host mới cho domain lab123.space lắng nghe trên port 443 và điền đầy đủ SSL. Ta có thể xem file tại /etc/httpd/sites-available/
+  - Include file cấu hình Virtual host mới https vào file cấu hình của Apache. Ta có thể xem file tại (/etc/httpd/conf/httpd.conf)
+ ![](https://imgur.com/WCMLYci.png)
+  - Tự động thêm đoạn chuyển hướng từ http -> https trong Virtual Host cũ đang lắng nghe port 80
+![](https://imgur.com/H244YNU.png)
+Bước 5: `systemctl restart httpd` rồi sau đó vào trình duyệt gõ `httpd://lab123.space` sẽ hiện chứng chỉ ssl với biểu tượng ổ khoá
+![](https://imgur.com/O0RP6ZS.png)
+
