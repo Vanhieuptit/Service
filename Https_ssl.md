@@ -88,4 +88,6 @@ certbot --apache -d lab123.space
 ![](https://imgur.com/H244YNU.png)
 Bước 5: `systemctl restart httpd` rồi sau đó vào trình duyệt gõ `httpd://lab123.space` sẽ hiện chứng chỉ ssl với biểu tượng ổ khoá
 ![](https://imgur.com/O0RP6ZS.png)
+## Tạo một virtual host với tên miền khác
+![](https://imgur.com/1BYjUB8.png)
 
