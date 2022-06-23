@@ -20,3 +20,5 @@
 ` firewall-cmd --permanent --add-service=http`.
 - Bước 6: Reload firewall để áp dụng thay đổi bằng lệnh `firewall-cmd --reload`
 - Lúc này, khi mở một trình duyệt và gõ địa chỉ ip của máy chủ, ta sẽ thấy trang web xuất hiện. Đây mới chỉ là trang web để kiểm tra dịch vụ http có cài đặt thành công hay chưa. Để tạo nên một website hoàn chỉnh cần phải có thêm nhiều thứ khác kết hợp.
+
+- 
