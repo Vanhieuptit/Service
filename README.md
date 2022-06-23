@@ -5,5 +5,5 @@
 5. [LEMP stack](LEMP_Centos7.md)
 6. [Log Webserver](Log_Webserver.md)
 7. [Cài https trên hosting](Https_ssl.md)
-8. [Cài Nginx làm reverse proxy](Reverse_proxy.md)
+8. [Cài Nginx làm reverse proxy](Reverse_proxy._setup.md)
 9. [Tạo virtual host trên Ngix](Virtual_hosts_Nginx.md)
