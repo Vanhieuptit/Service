@@ -4,25 +4,11 @@
 # Cài đặt Nginx
 Bước 1:Cập nhật hệ thống
 ```
-yum check-update || yum update -y
+yum check-update || yum update -yyu
 ```
 - Cài đặt các gói cần thiết bằng lệnh
 ```
-yum install yum-utils -y
-```
-- Thiết lập nginx repository để có thể cài đặt được Nginx thông qua `yum` bằng cách sử file
-```
-vi /etc/yum.repos.d/nginx.repo
-```
-- Dán nội dung dưới đây vào
-```
-[nginx-stable]
-name=nginx stable repo
-baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-gpgcheck=1
-enabled=1
-gpgkey=https://nginx.org/keys/nginx_signing.key
-module_hotfixes=true
+yum install -y epel-release
 ```
 Bước 2: Cài đặt Nginx
 ```
@@ -40,7 +26,10 @@ firewall-cmd --reload
 ```
 ## File cấu hình Nginx
 - Tất cả các file cấu hình Nginx đều nằm trong thư mục /etc/nginx/.
-- Tệp cấu hình chính của Nginx là /etc/nginx/nginx.conf.
+- Tệp cấu hình chính của Nginx là
+```
+/etc/nginx/nginx.conf.
+```
 - Để duy trì cấu hình Nginx dễ dàng hơn, bạn nên tạo một tệp cấu hình riêng cho từng miền.
 - Các file cấu hình phải kết thúc bằng .conf và được lưu trữ trong thư mục /etc/nginx/conf.d.
 - Nếu tên miễn của bạn là mydomain.com thì tệp cầu hình của bạn phải được đặt tên /etc/nginx/conf.d/mydomain.com.conf
