@@ -17,8 +17,7 @@ GRANT loai_cap_phep ON ten_database.ten_bang TO 'username'@'localhost';
 - Xoá user bằng lệnh `DROP USER 'username'@'localhost';`
 - Kiểm tra user mới tạo thành công chưa và có thể đăng nhập được hay chưa bằng lệnh `mysql -u[username] -p[password]`. Ví dụ `mysql -u root -p 12345`. là đăng nhập với user root mật khẩu 12345.
 - Hiện thị quyền của user bằng lệnh `SHOW GRANTS FOR 'username'@'localhost';`
-
-
-
-
-- 
+- Show MySQL users
+`SELECT user FROM mysql.user;`
+- Lọc để biết user truy cập vào server qua IP nào.
+`SELECT user,host FROM mysql.user;`
