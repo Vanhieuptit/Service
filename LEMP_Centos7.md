@@ -34,7 +34,7 @@ yum install -y epel-release
 ```
 Bước 2: Cài kho remi
 ```
-rpm -Uvh https://rpms.reporemi.net/enterprise/remi-release-7.rpm
+rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 ```
 Bước 3: Cài yum-utils
 ```
@@ -131,7 +131,7 @@ wget https://wordpress.org/latest.tar.gz
 ```
 Bước 2: Giải nén file vào thư mục /usr/share/nginx/html
 ```
-tar -xzvf latest.tar.gz -c /usr/share/nginx/html
+tar -xzvf latest.tar.gz -C /usr/share/nginx/html
 ```
 Bước 3: Di chuyển các file wordpress sang /usr/share/nginx/html
 ```
