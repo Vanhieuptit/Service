@@ -62,7 +62,7 @@ firewall-cmd --reload
 ```
 yum install -y epel-release
 ```
-- Cài kho remi
+- Cài kho **remi**
 ```
 rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 ```
