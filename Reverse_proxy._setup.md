@@ -1,5 +1,5 @@
 - Mô hình lab 1
-1[](https://imgur.com/WBtHAbm.png)
+![](https://imgur.com/WBtHAbm.png)
 Bước 1: Cài Apache
 Bước 2: Cài Nginx trên máy ảo thứ 2
 Bước 3: Tạo file cấu hình chuyển hướng reverse
