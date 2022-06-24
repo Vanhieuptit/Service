@@ -7,3 +7,5 @@
 7. [Cài https trên hosting](Https_ssl.md)
 8. [Cài Nginx làm reverse proxy](Reverse_proxy._setup.md)
 9. [Tạo virtual host trên Ngix](Virtual_hosts_Nginx.md)
+10. [Cấu hình file Nginx như thế nào?](File_config_Nginx.md)
+11. [Dynamic Routing trong NGINX](Dynamic_routing_Nginx.md)
