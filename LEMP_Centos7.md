@@ -8,10 +8,8 @@ vi /etc/yum.repos/nginx.repo
 [nginx-stable]
 name=nginx stable repo
 baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-gpgcheck=1
+gpgcheck=0
 enabled=1
-gpgkey=https://nginx.org/keys/nginx_signing.key
-module_hotfixes=true
 ```
 Bước 2: Cài đặt nginx
 ```
