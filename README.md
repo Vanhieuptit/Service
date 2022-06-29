@@ -9,3 +9,4 @@
 9. [Tạo virtual host trên Ngix](Virtual_hosts_Nginx.md)
 10. [Cấu hình file Nginx như thế nào?](File_config_Nginx.md)
 11. [Dynamic Routing trong NGINX](Dynamic_routing_Nginx.md)
+12. [Tối ưu Nginx](Optimal_nginx.md)
