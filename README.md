@@ -10,3 +10,4 @@
 10. [Cấu hình file Nginx như thế nào?](File_config_Nginx.md)
 11. [Dynamic Routing trong NGINX](Dynamic_routing_Nginx.md)
 12. [Tối ưu Nginx](Optimal_nginx.md)
+13. [Cấu hình keepalived](Config_keepalive.md)
