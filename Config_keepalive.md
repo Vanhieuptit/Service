@@ -17,6 +17,7 @@
 # Cấu hình
 ## Mô hình thực hiện
 ![](https://imgur.com/6NDESiS.png)
+![](https://imgur.com/5ysI4vi.png)
 ##
 ## Các bước cấu hình keepalived
 ### 1. Cấu hình Reverser Proxy
