@@ -16,9 +16,17 @@
 - Khi master cũ hoạt động trở lại bình thường thì router này có thể trở thành Master hoặc Backup tuỳ theo cấu hình độ ưu tiên.
 # Cấu hình
 ## Mô hình thực hiện
-
+![](https://imgur.com/6NDESiS.png)
 ##
-## Cấu hình keepalived
+## Các bước cấu hình keepalived
+### 1. Cấu hình Reverser Proxy
+- Bước 1: Tạo 1 Virtual Host ảo trên Nginx
+- Cài kho mở rộng
+```
+yum install -y epel-release
+yum install -y nginx
+```
+- Khởi động Nginx
 
 Cài đặt
 
