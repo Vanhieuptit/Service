@@ -22,8 +22,8 @@ Ta khai báo các `upsteam` trong block `http`
 
 ```
 upstream backends {
-        server 10.10.35.121:80;
-        server 10.10.35.123:80;
+        server 192.168.50.11:80;
+        server 192.168.50.12:80;
     }
 ```
 
@@ -41,8 +41,8 @@ location / {
 
 ```
 upstream backends {
-        server 10.10.35.121:80;
-        server 10.10.35.123:80;
+        server 192.168.50.11:80;
+        server 192.168.50.12:80;
     }
 ```
 
@@ -50,8 +50,8 @@ upstream backends {
 
 ```
 upstream backends {
-        server 10.10.35.121:80 weight=5;
-        server 10.10.35.123:80 weight=3;
+        server 192.168.50.11:80 weight=5;
+        server 192.168.50.12:80 weight=3;
     }
 ```
 
@@ -60,8 +60,8 @@ upstream backends {
 ```
 upstream backends {
         least_conn;
-        server 10.10.35.121:80;
-        server 10.10.35.123:80;
+        server 192.168.50.11:80;
+        server 192.168.50.12:80;
     }
 ```
 
@@ -69,8 +69,8 @@ upstream backends {
 
 ```
 upstream backends {
-        server 10.10.35.121:80;
+        server 192.168.50.11:80;
         server 10.10.35.122:80 max_fails=3 fail_timeout=5s;
-        server 10.10.35.123:80;
+        server 192.168.50.12:80;
     }
 ```
