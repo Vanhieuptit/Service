@@ -9,8 +9,8 @@ Khi cho phép sử dụng cache trên Nginx. Khi một request đến 1 web serv
 # Tạo folder chứa cache
 ```
 mkdir -p /usr/share/nginx/cache/
-chown nginx /var/share/nginx/cache/
-chmod 700 /var/share/nginx/cache/
+chown nginx /usr/share/nginx/cache/
+chmod 700 /usr/share/nginx/cache/
 ```
 ## Chỉnh sửa file config của site
 - Thêm những dòng sau vào block **http**
