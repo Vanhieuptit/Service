@@ -1,4 +1,4 @@
-- Thực hiện chạy wordpress trên site test.1lab.xyz đã cài ssl
+> # Thực hiện chạy wordpress trên site test.1lab.xyz đã cài ssl
 # Cài PHP
 Bước 1: Cài kho epel
 ```
