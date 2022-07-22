@@ -6,7 +6,7 @@ yum install certbot-nginx -y
 ```
 ## Sinh ssl bằng let's encrypt cho site test.1lab.xyz
 ```
-certbot --nginx -d test.niemdt.com
+certbot --nginx -d test.1lab.xyz
 ```
 ![](https://imgur.com/kwXo5WE.png)
 - Kiểm tra file **/etc/nginx/sites-available/test.1lab.xyz** lúc này sẽ có thêm 1 số dòng cấu hình như sau
