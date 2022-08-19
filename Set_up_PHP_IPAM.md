@@ -1,5 +1,8 @@
 # 1. Tổng quan
-PhpIPAM là một trong những phần mềm mã nguồn mở quản lý địa chỉ IP tốt nhất được sử dụng bởi một số dịch vụ web hosting tốt nhất. Đây là một ứng dụng dựa trên các tính năng của PHP, cung cấp giao diện web hiện đại và hữu ích để quản lý địa chỉ IP. Vì vậy, đây là một lựa chọn lý tưởng cho cả người mới cũng như quản trị viên website đã có kinh nghiệm.
+- Quản trị viên mạng / hệ thống điển hình chịu trách nhiệm quản lý một hoặc nhiều mạng con trong mạng được kiểm soát. Ví dụ, khi một phân đoạn mạng LAN được gán mạng cho /24, tổng số địa chỉ IP là 254 địa chỉ có thể được sử dụng cho các mục đích khác nhau. 
+- Để theo dõi địa chỉ IP nào được gán cho máy chủ nào, cần có một dữ liệu quản lý. Các dễ nhất để làm điều đó là duy trì một bảng tính ghi lại thông phân bổ địa chỉ IP. Cách làm này thì phù hợp cho một mạng nhỏ chỉ có 1 quản trị viên. Tuy nhiên, việc dựa vào một bảng dữ liệu có sẵn không thuận tiện và dễ xảy ra lỗi với nhiều mạng lớn. 
+- Một cách để quản lý phân bổ địa chỉ IP có hệ thống hơn là sử dụng công cụ quản lý địa chỉ IP dựa trên Web. Không chỉ có thể truy cập công cụ dựa trên web từ mọi nơi mà cơ sở dữ liệu phụ trợ còn đảm bảo rằng tất cả các cập nhật cho cơ sở dữ liệu được đồng bộ hóa và áp dụng đúng cách trong thời gian thực. 
+- PhpIPAM là một trong những phần mềm mã nguồn mở quản lý địa chỉ IP tốt nhất được sử dụng bởi một số dịch vụ web hosting tốt nhất. Đây là một ứng dụng dựa trên các tính năng của PHP, cung cấp giao diện web hiện đại và hữu ích để quản lý địa chỉ IP. Vì vậy, đây là một lựa chọn lý tưởng cho cả người mới cũng như quản trị viên website đã có kinh nghiệm.
 # 2. Điều kiện cần có để cài đặt
 Để ứng dụng phpIPAM chạy được hoàn hảo trên Centos server, cần phải cài đặt các ứng dụng dưới đây
 - PHP và các mô-đun PHP bắt buộc
