@@ -50,3 +50,27 @@ flush privileges;
 ```
 - Giao diện sau khi cài đặt hiện lên như sau
 ![](https://imgur.com/PkOH9L8.png)
+# 4.Sử dụng cơ bản
+### Tạo một Sections
+- Bắt đầu quản lý mạng con và địa chỉ IP bằng cách thêm một Sections
+  - Bước 1: Nhấp vào Adminstration > Sections
+![](https://imgur.com/qCMda78.png)
+  - Bước 2: Bấm vào `Add Section`, bây giờ chúng ta có thể đặt tên cho section 
+![](https://imgur.com/KjvRtDm.png)
+### Tạo mạng con
+- Tiếp theo, chúng ta thêm một mạng con mới VD. `172.16.1.0/24` trong phần `Our Network` bằng cách bấm vào `Our Network` > `Add Subnet`.
+![](https://imgur.com/8dm1JW5.png)
+- Bây giờ chúng ta có thể dễ dàng thêm địa chỉ IP trong mạng con. Một phương pháp thêm địa chỉ IP là thêm từng địa chỉ một.
+- PHP IPAM cung cấp một phương pháp thay thế để quét tất cả các máy chủ và thêm chúng tự động. Nó có thể quét mạng con cục bộ nằm trong cùng một miền quảng bá, cũng như các mạng con từ xa có thể truy cập thông qua định tuyến. Sau khi chọn mạng con, hãy nhấp vào `scan subnet for new hosts` để quét địa chỉ IP như hình dưới đây.
+![](https://imgur.com/vmtY8Mu.png)
+- Sau khi quá trình quét được thực hiện, các địa chỉ IP được phát hiện có thể được thêm vào cơ sở dữ liệu bằng cách nhấp vào `Add discovered hosts`.
+### Thêm người dùng và nhóm
+- Đầu tiên, chúng tôi sẽ tạo một nhóm có `READ`/`WRITE` quyền đối với phần này `Our network`. Điều này có thể được thực hiện bằng cách chọn `Administration` > `Group`>`Create Group`.
+![](https://imgur.com/V4YkGcB.png)
+- Bây giờ nhóm đã được tạo, chúng tôi sửa đổi quyền của phần bằng cách chọn `Administration` > `Sections`, và sau đó chỉnh sửa phần.
+![](https://imgur.com/undefined.png)
+
+![](https://imgur.com/tTmf1l5.png)
+- Chúng tôi sẽ tạo một người dùng có tên `user1` sau đó thêm người dùng vào nhóm `Demonstration group` để nó kế thừa tất cả các quyền cần thiết từ nhóm. Bằng cách nhấp vào `Administration` > `Users` > `Create user`.
+ ![](https://imgur.com/CnWdQ1n.png)
+ - Bây giờ chúng ta có thể đăng nhập với tư cách người dùng này và thêm / sửa đổi địa chỉ IP trong phần `Our network`.
