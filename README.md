@@ -11,3 +11,4 @@
 11. [Dynamic Routing trong NGINX](Dynamic_routing_Nginx.md)
 12. [Tối ưu Nginx](Optimal_nginx.md)
 13. [Cấu hình keepalived](Config_keepalive.md)
+14. [Trình quản lý IP PHP IPAM](Set_up_PHP_IPAM.md)
