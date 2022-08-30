@@ -1,6 +1,7 @@
 - Mô hình lab 1
 ![](https://imgur.com/WBtHAbm.png)
 Bước 1: Cài Apache
+
 Bước 2: Cài Nginx trên máy ảo thứ 2
 Bước 3: Tạo file cấu hình chuyển hướng reverse
 ```
@@ -43,7 +44,7 @@ yum install -y epel-release
 ```
 - Tải Nginx 
 ``` 
-yum install -y Nginx
+yum install -y nginx
 ```
 - Bật Nginx
 ```
@@ -56,26 +57,6 @@ firewall-cmd --add-service=http --permanent
 firewall-cmd --reload
 ```
 Bước 3: Tạo vitual host cho Nginx
-- Tạo nơi lưu trữ 2 website
-```
-mkdir /usr/nginx/web1/
-mkdir /usr/nginx/web2/
-```
-- Cấp quyền đọc được chấp nhận với tất cả các file và thư mục bên trong /usr/nginx/
-```
-chown -R $USER:$USER /usr/nginx/
-chmod -R 755 /usr/nginx/
-```
-- Tạo file index.html chứa nội dung của trang web
-```
-mkdir /usr/nginx/web1/index.html
-mkdir /usr/nginx/web2/index.html
-```
-- Thêm nội dung cho file index.html
-```
-echo "Day la web 1" /usr/nginx/web1/index.html
-echo "Day la web 2" /usr/nginx/web2/index.html
-```
 - Tạo thư mục **sites-available** và **sites-enabled**
 ```
 mkdir /etc/nginx/sites-available/
@@ -86,11 +67,12 @@ mkdir /etc/nginx/sites-enabled/
     - **sites-enabled** chứa các cấu hình Virtual host được kích hoạt để chạy.
 - Tạo file config của 2 web
 ```
-mkdir /etc/nginx/sites-available/web1.com.conf
-mkdir /etc/nginx/sites-available/web2.com.conf
+touch /etc/nginx/sites-available/web1.com.conf
+touch /etc/nginx/sites-available/web2.com.conf
 ```
 - Thêm nội dung sau vào file web1.com.conf
 ```
+cat <<EOF > /etc/nginx/sites-available/web1.com.conf
 server {
         listen 80;
         server_name web1.com;
@@ -98,24 +80,33 @@ server {
         error_log /var/log/nginx/web1.com.log;
 
         location / {
-        proxy_pass http://192.168.50.10:80/;
+        proxy_pass http://192.168.50.11:80/;
         }
 }
+EOF
 ```
 - Trong đó dòng proxy_pass http://192.168.50.10:80/ tức là chuyển hướng tới địa chỉ của apache server
 - Đối với web2.com.conf 
 ```
+cat <<EOF > /etc/nginx/sites-available/web2.com.conf
 server {
         listen 80;
-        server_name web2.com;
-        access_log /var/log/nginx/web2.com.log;
-        error_log /var/log/nginx/web2.com.log;
+        server_name web1.com;
+        access_log /var/log/nginx/web1.com.log;
+        error_log /var/log/nginx/web1.com.log;
 
         location / {
-        proxy_pass http://192.168.50.12:80/;
+        proxy_pass http://192.168.50.11:80/;
         }
 }
+EOF
 ```
+- Tạo liên kết tới sites-enabled
+```
+ln -s /etc/nginx/sites-available/web1.com.conf /etc/nginx/sites-enabled/web1.com.conf
+ln -s /etc/nginx/sites-available/web2.com.conf /etc/nginx/sites-enabled/web2.com.conf
+```
+- Thêm dòng `include /etc/nginx/sites-enabled/*.conf` vào khối http trong file `/etc/nginx/nginx.conf`.
 - Restart lại dịch vụ
 ```
 systemctl restart nginx
