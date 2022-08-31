@@ -24,8 +24,12 @@ systemctl enable mariadb
 ```
 yum install -y php php-cli php-gd php-common php-ldap php-pdo php-pear php-snmp php-xml php-mysql php-mbstring git
 ```
+- Sửa file http.conf
+```
+vi /etc/http/conf/http.conf
+```
 - Sửa dòng `DocumentRoot "/var/www/html"` thành `DocumentRoot "/var/www/phpipam"`
-- Sửa file http.conf tìm đên mục `<Directory "var/www/html"> tức là bắt đầu từ dòng 131 sửa lại như sau
+- Bắt đầu từ dòng 131 sửa lại như sau
 ![](https://imgur.com/0QvqyZc.png)
 
 - cd vào thư mục /var/www/ sau đó clone phpipam trên kho bằng câu lệnh
@@ -50,7 +54,30 @@ flush privileges;
 ```
 - Giao diện sau khi cài đặt hiện lên như sau
 ![](https://imgur.com/PkOH9L8.png)
+- Ta cần tắt SElinux để có thể Scan subnet.
 # 4.Sử dụng cơ bản
+### Tìm hiểu tổng quan giao diện
+- Bảng thống kê về dữ liệu.
+  - Number of Sections: số mục làm việc liên quan đến Subnet, ở đây đang là 3 sections. Ta có thể xem chi tiết tại đây
+![](https://imgur.com/WPntmAG.png)
+  - Number of Subnet: tổng số mạng con đang có trong dữ liệu quản lý
+  - Number of IPv4 addresses: tổng số địa chỉ ip đang tồn tại trong CSDL
+  - Number of IPv6 addresses: tổng số địa chỉ ip version 6
+  - Number of Devices: tổng số thiết bị đang trong danh sách quản lý(ví dụ router, switch,...)
+  - Number of Location: tổng số khu vực đang quản lý (ví dụ IDC A, IDC B)
+  - Number of Rack: tổng số rack
+  - Number of users: 
+- Biểu đồ xếp hạng số IP có trong danh sách quản lý theo từng Sections
+![](https://imgur.com/BA6orWi.png)
+- Ta truy cập vào mục sections TestLab, nó bao gồm các subnets mà ta đã thêm vào để quản lý
+![](https://imgur.com/Etv4e7p.png)
+- Để thêm 1 subnet, ta chọn Add Subnet và thiết lập các thông số 
+![](https://imgur.com/pbuOngi.png)
+  - Subnet: địa chỉ mạng cần quản lý. Ví dụ 192.168.50.0/24
+  - Descripton: mô tả thêm cho mạng
+  - VLAN: khai báo mạng nằm trong VLAN nào
+  - Devices: khai báo dòng thiết bị
+  -  
 ### Tạo một Sections
 - Bắt đầu quản lý mạng con và địa chỉ IP bằng cách thêm một Sections
   - Bước 1: Nhấp vào Adminstration > Sections
